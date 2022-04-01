@@ -11,6 +11,6 @@ public class SearchTests {
         $("[name=q]").setValue("selenide").pressEnter();
         $("[id=search]").shouldHave(text("https://ru.selenide.org"));
         System.out.println("Тест успешный");
-        System.out.println("Конфликт-3");
+        System.out.println("Конфликт-1");
     }
 }
