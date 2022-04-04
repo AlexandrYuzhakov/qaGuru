@@ -37,33 +37,33 @@ public class TestStudentRegistration {
         open("/automation-practice-form");
         getWebDriver().manage().window().maximize();
 
-        $("[id=firstName]").setValue(name);
-        $("[id=lastName]").setValue(lastName);
-        $("[id=userEmail]").setValue(email);
+        $("#firstName").setValue(name);
+        $("#lastName").setValue(lastName);
+        $("#userEmail").setValue(email);
         $x("//*[@for='gender-radio-1']").click();
-        $("[id=userNumber]").setValue(mobile);
-        $("[id=dateOfBirthInput]").click();
+        $("#userNumber").setValue(mobile);
+        $("#dateOfBirthInput").click();
         $(".react-datepicker__year-select").selectOptionContainingText(yearOfBirth);
         $(".react-datepicker__month-select").selectOptionContainingText(monthOfBirth);
         $x("//*[contains(@aria-label, '" + monthOfBirth + " " + dataOfBirth + "th, " + yearOfBirth + "')]").click();
         $x("//div[@class='subjects-auto-complete__control css-yk16xz-control']").click();
-        $("[id=subjectsInput]").shouldBe(visible).setValue(subjects).pressEnter();
+        $("#subjectsInput").shouldBe(visible).setValue(subjects).pressEnter();
         $x("//*[@for='hobbies-checkbox-1']").click();
 
         File starting = new File(System.getProperty("user.dir"));
         File file = new File(starting + "\\src\\test\\resources\\Image11.jpg");
-        $("[id=uploadPicture]").uploadFile(file);
+        $("#uploadPicture").uploadFile(file);
 
 
-        $("[id=currentAddress]").setValue(currentAddress);
+        $("#currentAddress").setValue(currentAddress);
         $x("//*[@id='state']//*[@class=' css-tlfecz-indicatorContainer']").click();
-        $("[id=react-select-3-input]").shouldBe(visible).setValue(state).pressEnter();
+        $("#react-select-3-input").shouldBe(visible).setValue(state).pressEnter();
         $x("//*[@id='city']//*[@class=' css-tlfecz-indicatorContainer']").click();
-        $("[id=react-select-4-input]").shouldBe(visible).setValue(city).pressEnter();
-        $("[id=submit]").click();
+        $("#react-select-4-input").shouldBe(visible).setValue(city).pressEnter();
+        $("#submit").click();
 
         Configuration.timeout = 20000;
-        $("[class=table-responsive]").shouldBe(visible).shouldHave(text(name), text(lastName),
+        $(".table-responsive").shouldBe(visible).shouldHave(text(name), text(lastName),
                 text(email), text(mobile), text(subjects), text(currentAddress), text(city), text(state), text("image11.jpg"),
                 text("Sports"), text("17 November,1980"), text("Male"));
     }
