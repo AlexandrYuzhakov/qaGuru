@@ -20,7 +20,7 @@ public class TestStudentRegistration {
     }
 
     @Test
-    void fillFormTest() {
+    void studentRegistrationTest() {
         String name = "Alex";
         String lastName = "Egorov";
         String email = "alex@egorov.com";
