@@ -1,77 +1,75 @@
+import Pages.RegistrationPage;
+import Pages.ResultPage;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.SelenideElement;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
+import static java.lang.String.format;
 
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class TestStudentRegistration {
+
+    RegistrationPage registrationPage = new RegistrationPage();
+    Faker faker = new Faker();
+    ResultPage resultPage = new ResultPage();
+
 
     @BeforeAll
     static void setUp() {
         Configuration.holdBrowserOpen = true;
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
+        Configuration.pageLoadTimeout = 100000;
     }
+
 
     @Test
     void studentRegistrationTest() {
-        String name = "Alex";
-        String lastName = "Egorov";
-        String email = "alex@egorov.com";
-        String gender = "Male";
-        String mobile = "1234567899";
-        String yearOfBirth = "1980";
-        String monthOfBirth = "November";
-        String dataOfBirth = "17";
-        String subjects = "English";
-        String hobby = "Sports";
-        String file = "Image11.jpg";
-        String currentAddress = "Some address 11";
-        SelenideElement stateCityWrapper = $("#stateCity-wrapper");
-        String state = "Uttar Pradesh";
-        String city = "Lucknow";
 
+        String name = faker.name().firstName(),
+                lastName = faker.name().lastName(),
+                email = faker.internet().emailAddress(),
+                gender = "Male",
+                mobile = faker.phoneNumber().subscriberNumber(10),
+                yearOfBirth = "1980",
+                monthOfBirth = "November",
+                dataOfBirth = "17",
+                subjects = "English",
+                hobby = "Sports",
+                file = "Image11.jpg",
+                currentAddress = faker.address().fullAddress(),
+                state = "Uttar Pradesh",
+                city = "Lucknow",
 
-        open("/automation-practice-form");
-        getWebDriver().manage().window().maximize();
+                expFullName = format("%s %s", name, lastName),
+                expDate = format("%s %s,%s", dataOfBirth, monthOfBirth, yearOfBirth),
+                expLocation = format("%s %s", state, city);
 
-        $("#firstName").setValue(name);
-        $("#lastName").setValue(lastName);
-        $("#userEmail").setValue(email);
-        $("#genterWrapper").$(byText(gender)).click();
-        $("#userNumber").setValue(mobile);
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__year-select").selectOptionContainingText(yearOfBirth);
-        $(".react-datepicker__month-select").selectOptionContainingText(monthOfBirth);
-        $x("//*[contains(@aria-label, '" + monthOfBirth + " " + dataOfBirth + "th, " + yearOfBirth + "')]").click();
-        $("#subjectsInput").setValue(subjects).pressEnter();
-        $("#hobbiesWrapper").$(byText(hobby)).click();
-        $("#uploadPicture").uploadFromClasspath(file);
-        $("#currentAddress").setValue(currentAddress);
-        stateCityWrapper.$(byText("Select State")).click();
-        stateCityWrapper.$(byText(state)).click();
-        stateCityWrapper.$(byText("Select City")).click();
-        stateCityWrapper.$(byText(city)).click();
-        $("#submit").click();
+        registrationPage.openPage()
+                .setFirstName(name)
+                .setLastName(lastName)
+                .setEmail(email)
+                .setGender(gender)
+                .setPhoneNumber(mobile)
+                .setBirthDate(dataOfBirth, monthOfBirth, yearOfBirth)
+                .setSubject(subjects)
+                .setHobby(hobby)
+                .uploadPicture(file)
+                .setAddress(currentAddress)
+                .setStateAndCity(state, city)
+                .submitForm();
 
-        Configuration.timeout = 20000;
-        $(".table-responsive").shouldHave(
-                text(name),
-                text(lastName),
-                text(email),
-                text(mobile),
-                text(subjects),
-                text(currentAddress),
-                text(city), text(state),
-                text(file),
-                text(hobby),
-                text("" + dataOfBirth + " " + monthOfBirth + "," + yearOfBirth + ""),
-                text(gender));
+        resultPage.checkTitle("Thanks for submitting the form")
+                .checkResult("Student Name", expFullName)
+                .checkResult("Student Email", email)
+                .checkResult("Gender", gender)
+                .checkResult("Mobile", mobile)
+                .checkResult("Date of Birth", expDate)
+                .checkResult("Subjects", subjects)
+                .checkResult("Hobbies", hobby)
+                .checkResult("Picture", file)
+                .checkResult("Address", currentAddress)
+                .checkResult("State and City", expLocation);
     }
 }
