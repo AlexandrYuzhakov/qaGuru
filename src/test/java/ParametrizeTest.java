@@ -21,6 +21,22 @@ public class ParametrizeTest {
     Faker faker = new Faker();
     ResultPage resultPage = new ResultPage();
 
+    String email = faker.internet().emailAddress(),
+            lastName = faker.name().lastName(),
+            gender = "Male",
+            mobile = faker.phoneNumber().subscriberNumber(10),
+            yearOfBirth = "1980",
+            monthOfBirth = "November",
+            dataOfBirth = "17",
+            subjects = "English",
+            hobby = "Sports",
+            file = "image11.jpg",
+            currentAddress = faker.address().fullAddress(),
+            state = "Uttar Pradesh",
+            city = "Lucknow",
+            expDate = format("%s %s,%s", dataOfBirth, monthOfBirth, yearOfBirth),
+            expLocation = format("%s %s", state, city);
+
 
     @BeforeAll
     static void setUp() {
@@ -38,23 +54,9 @@ public class ParametrizeTest {
     void studentRegistrationTest(String testData) {
 
         String name = testData,
-                lastName = faker.name().lastName(),
-                email = faker.internet().emailAddress(),
-                gender = "Male",
-                mobile = faker.phoneNumber().subscriberNumber(10),
-                yearOfBirth = "1980",
-                monthOfBirth = "November",
-                dataOfBirth = "17",
-                subjects = "English",
-                hobby = "Sports",
-                file = "Image11.jpg",
-                currentAddress = faker.address().fullAddress(),
-                state = "Uttar Pradesh",
-                city = "Lucknow",
 
-                expFullName = format("%s %s", name, lastName),
-                expDate = format("%s %s,%s", dataOfBirth, monthOfBirth, yearOfBirth),
-                expLocation = format("%s %s", state, city);
+
+                expFullName = format("%s %s", name, lastName);
 
         registrationPage.openPage()
                 .setFirstName(name)
@@ -93,22 +95,8 @@ public class ParametrizeTest {
 
         String name = nameData,
                 lastName = lastNameData,
-                email = faker.internet().emailAddress(),
-                gender = "Male",
-                mobile = faker.phoneNumber().subscriberNumber(10),
-                yearOfBirth = "1980",
-                monthOfBirth = "November",
-                dataOfBirth = "17",
-                subjects = "English",
-                hobby = "Sports",
-                file = "Image11.jpg",
-                currentAddress = faker.address().fullAddress(),
-                state = "Uttar Pradesh",
-                city = "Lucknow",
+                expFullName = format("%s %s", name, lastName);
 
-                expFullName = format("%s %s", name, lastName),
-                expDate = format("%s %s,%s", dataOfBirth, monthOfBirth, yearOfBirth),
-                expLocation = format("%s %s", state, city);
 
         registrationPage.openPage()
                 .setFirstName(name)
@@ -150,22 +138,7 @@ public class ParametrizeTest {
     void metodStudentRegistrationComplexTest(String nameData, String lastNameData) {
         String name = nameData,
                 lastName = lastNameData,
-                email = faker.internet().emailAddress(),
-                gender = "Male",
-                mobile = faker.phoneNumber().subscriberNumber(10),
-                yearOfBirth = "1980",
-                monthOfBirth = "November",
-                dataOfBirth = "17",
-                subjects = "English",
-                hobby = "Sports",
-                file = "Image11.jpg",
-                currentAddress = faker.address().fullAddress(),
-                state = "Uttar Pradesh",
-                city = "Lucknow",
-
-                expFullName = format("%s %s", name, lastName),
-                expDate = format("%s %s,%s", dataOfBirth, monthOfBirth, yearOfBirth),
-                expLocation = format("%s %s", state, city);
+                expFullName = format("%s %s", name, lastName);
 
         registrationPage.openPage()
                 .setFirstName(name)
