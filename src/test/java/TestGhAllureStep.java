@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Selenide.page;
 
 
 @DisplayName("Тест с аннотацией @Step")
-public class TestGhAllureStep {
+public class TestGhAllureStep extends TestBase {
 
     private static final String REPOSITORY = "AlexandrYuzhakov/qaGuru";
     private static final int ISSUE_NUMBER = 3;

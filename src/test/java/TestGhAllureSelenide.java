@@ -12,7 +12,7 @@ import static org.openqa.selenium.By.linkText;
 import static org.openqa.selenium.By.partialLinkText;
 
 @DisplayName("Тест чистый Selenide")
-public class TestGhAllureSelenide {
+public class TestGhAllureSelenide extends TestBase {
 
     @Test
     @Owner("AlexandrYuzhakov")

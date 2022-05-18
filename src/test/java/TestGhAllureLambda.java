@@ -16,7 +16,7 @@ import static org.openqa.selenium.By.linkText;
 import static org.openqa.selenium.By.partialLinkText;
 
 @DisplayName("Тест Лямбда шаги через step")
-public class TestGhAllureLambda {
+public class TestGhAllureLambda extends TestBase {
 
 
     private static final String REPOSITORY = "AlexandrYuzhakov/qaGuru";
