@@ -42,7 +42,7 @@ public class TestGhAllureLambda extends TestBase {
             $(partialLinkText("Issues")).click();
         });
         step("Проверяем Issue с номером " + ISSUE_NUMBER, () -> {
-            $(withText("#1")).should(Condition.visible);
+            $(withText("#3")).should(Condition.visible);
             Allure.getLifecycle().addAttachment(
                     "Исходники страницы",
                     "text/html",
