@@ -45,7 +45,7 @@ public class AllureAttachments {
     }
 
     public static URL getVideoUrl(String sessionId) {
-        String videoUrl = "http://mck-t-docker-qa.mgc.local:8080/video/" + sessionId + ".mp4";
+        String videoUrl = "https://selenoid.autotests.cloud/video/" + sessionId + ".mp4";
 
         try {
             return new URL(videoUrl);
